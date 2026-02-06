@@ -1,0 +1,20 @@
+from fakepinterest import database, login
+from datetime import datetime
+from flask_login import UserMixin
+
+@login.user_loader
+def load_usuario(id_usuario):
+    return Usuario.query.get(int(id_usuario))
+
+class Usuario(database.Model, UserMixin):
+    id = database.Column(database.Integer, primary_key=True)
+    username = database.Column(database.String, nullable=False)
+    email = database.Column(database.String, nullable=False, unique=True)
+    senha = database.Column(database.String, nullable=False)
+    post = database.relationship('Posts', backref='usuario', lazy=True)
+
+class Posts(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    imagem = database.Column(database.String, default='default.png')
+    data_criacao = database.Column(database.DateTime, nullable=False)
+    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False, default=datetime.utcnow)
