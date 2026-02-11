@@ -1,0 +1,24 @@
+{% extends 'homepage.html' %}
+
+{% block titulo %}
+    Criar Conta - Pinterest Falso
+    {% endblock %}
+
+{% block formulario %}
+<form method='POST'>
+{{ form.scsrf_token }}
+
+    {{ form.email.label() }} 
+    {{ form.email() }}
+
+    {{ form.username.label() }}
+    {{ form.username() }}
+
+    {{ form.senha.label() }} 
+    {{ form.senha() }}
+
+    {{ form.confirmar_senha.label() }} 
+    {{ form.confirmar_senha () }}
+
+    {{ form.botao_confirmar()}}
+{% endblock %}

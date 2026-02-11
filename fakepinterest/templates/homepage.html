@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang='pt-br'>
 <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>
         {% block titulo %}
         Pinterest Falso
@@ -10,8 +10,26 @@
 </head>
 {% block body %}
 <body>
+    
 <p>Fake Pinterest - Meu primeiro site com Python no ar<p> 
+
 <p>Vamos continuar nosso site</p>    
+
+{% block formulario %}
+<form method='POST'>
+{{ form.scsrf_token }}
+
+    {{ form.email.label() }} 
+    {{ form.email() }}
+
+    {{ form.senha.label() }} 
+    {{ form.senha() }}
+
+    {{ form.botao_confirmar() }}
+
+
+</form>
+{% endblock %}
 </body>
 {% endblock %}
 </html>
