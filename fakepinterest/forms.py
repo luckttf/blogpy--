@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+from fakepinterest.models import Usuario 
 
 class FormLogin(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()], unique=True)
