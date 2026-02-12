@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
-from fakepinterest import app
-from fakepinterest.models import Usuario, Foto
+from fakepinterest import app, database, bcrypt
+from fakepinterest.models import Usuario
 from flask_login import login_required
 from fakepinterest.forms import FormLogin, FormCriarConta
 
@@ -13,8 +13,13 @@ def homepage():
 def criarconta():
     formcriarconta = FormCriarConta()
     if formcriarconta.validate_on_submit():
+        senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
         usuario = Usuario(username=formcriarconta.username.data, email=formcriarconta.email.data
-                          , senha=formcriarconta.senha.data)
+                          , senha=senha)
+        
+        database.session.add(usuario)
+        database.session.commit()
+        print(formcriarconta.errors)
     return render_template('criarconta.html', form=formcriarconta)
 
 @app.route('/perfil/<usuario>')

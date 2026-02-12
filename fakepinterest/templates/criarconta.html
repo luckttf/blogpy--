@@ -6,7 +6,7 @@
 
 {% block formulario %}
 <form method='POST'>
-{{ form.scsrf_token }}
+    {{ form.csrf_token }}
 
     {{ form.email.label() }} 
     {{ form.email() }}
@@ -21,4 +21,5 @@
     {{ form.confirmar_senha () }}
 
     {{ form.botao_confirmar()}}
+</form>
 {% endblock %}
