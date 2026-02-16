@@ -1,5 +1,5 @@
 from fakepinterest import database, login
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_login import UserMixin
 
 @login.user_loader
@@ -16,5 +16,5 @@ class Usuario(database.Model, UserMixin):
 class Posts(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     imagem = database.Column(database.String, default='default.png')
-    data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow)
+    data_criacao = database.Column(database.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
